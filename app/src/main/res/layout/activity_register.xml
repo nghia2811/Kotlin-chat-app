@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
+
+    <TextView
+        android:id="@+id/orchid1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:text="Create account"
+        android:textAlignment="center"
+        android:textColor="#EC6940"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/orchid1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/border8"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/register_user"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="90dp"
+            android:background="@drawable/edittext_border"
+            android:drawableLeft="@drawable/ic_baseline_person_outline_24"
+            android:drawablePadding="10dp"
+            android:hint="Username"
+            android:inputType="textEmailAddress"
+            android:paddingStart="10dp" />
+
+        <EditText
+            android:id="@+id/register_pass"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/edittext_border"
+            android:drawableLeft="@drawable/ic_baseline_lock_24"
+            android:drawablePadding="10dp"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:paddingStart="10dp" />
+
+        <Button
+            android:id="@+id/btn_register"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="90dp"
+            android:background="@drawable/button_selector3"
+            android:text="register"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</RelativeLayout>
