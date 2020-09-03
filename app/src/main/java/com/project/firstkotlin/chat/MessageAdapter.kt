@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.project.firstkotlin.`object`.Message
+import com.project.firstkotlin.entity.Message
 import com.project.firstkotlin.R
 
 class MessageAdapter(private val myDataset: ArrayList<Message>) :

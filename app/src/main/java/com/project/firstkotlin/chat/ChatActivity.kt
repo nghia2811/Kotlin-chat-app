@@ -10,8 +10,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.project.firstkotlin.R
-import com.project.firstkotlin.`object`.Message
-import com.project.firstkotlin.`object`.SocketSingleton
+import com.project.firstkotlin.entity.Message
+import com.project.firstkotlin.entity.SocketSingleton
 import com.project.firstkotlin.info.InfoActivity
 import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.activity_chat.*

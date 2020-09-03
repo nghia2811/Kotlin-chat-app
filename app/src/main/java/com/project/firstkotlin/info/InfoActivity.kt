@@ -8,7 +8,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.project.firstkotlin.R
-import com.project.firstkotlin.`object`.SocketSingleton
+import com.project.firstkotlin.entity.SocketSingleton
 import com.project.firstkotlin.login.MainActivity
 import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.activity_info.*
