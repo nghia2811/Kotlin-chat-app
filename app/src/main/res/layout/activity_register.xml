@@ -1,41 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
     android:background="@color/colorWhite">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="140dp"
         android:background="@drawable/background" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/iv_logo_register"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:layout_marginTop="40dp"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"
         app:cardCornerRadius="40dp"></androidx.cardview.widget.CardView>
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/tv_signup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/iv_logo_register"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="30dp"
         android:text="Sign up for free"
+        android:fontFamily="@font/milkshake"
         android:textAlignment="center"
         android:textColor="@color/colorBlack"
-        android:textSize="25sp"
+        android:textSize="27sp"
         android:textStyle="bold" />
 
     <EditText
         android:id="@+id/register_user"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_signup"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:background="@drawable/edittext_selector"
         android:drawableLeft="@drawable/ic_baseline_account_circle_24"
@@ -49,9 +55,7 @@
         android:id="@+id/register_pass"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/register_user"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/edittext_selector"
         android:drawableLeft="@drawable/ic_baseline_lock_24"
         android:drawablePadding="10dp"
@@ -64,9 +68,7 @@
         android:id="@+id/register_name"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/register_pass"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/edittext_selector"
         android:drawableLeft="@drawable/ic_baseline_emoji_emotions_24"
         android:drawablePadding="10dp"
@@ -78,25 +80,19 @@
         android:id="@+id/register_address"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/register_name"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/edittext_selector"
         android:drawableLeft="@drawable/ic_baseline_location_on_24"
         android:drawablePadding="10dp"
         android:hint="Address"
-        android:inputType="textPassword"
         android:padding="10dp"
         android:paddingStart="10dp" />
 
     <Button
         android:id="@+id/btn_register"
         android:layout_width="200dp"
-        android:layout_height="55dp"
-        android:layout_below="@id/register_address"
-        android:layout_centerHorizontal="true"
+        android:layout_height="50dp"
         android:layout_marginTop="40dp"
-        android:layout_marginBottom="90dp"
         android:background="@drawable/button_selector"
         android:text="register"
         android:textSize="18sp"
@@ -107,13 +103,10 @@
         android:id="@+id/tv_back_signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="20dp"
         android:background="?attr/selectableItemBackground"
+        android:layout_marginTop="80dp"
         android:drawableLeft="@drawable/ic_baseline_arrow_left_24"
         android:text="Back to Sign in"
         android:textColor="@color/colorBlack"
         android:textSize="17sp" />
-</RelativeLayout>
+</LinearLayout>

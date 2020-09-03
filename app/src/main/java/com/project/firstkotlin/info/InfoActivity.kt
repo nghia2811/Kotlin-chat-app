@@ -9,7 +9,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.project.firstkotlin.R
 import com.project.firstkotlin.entity.SocketSingleton
-import com.project.firstkotlin.login.MainActivity
+import com.project.firstkotlin.login.LoginActivity
 import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.activity_info.*
 import org.json.JSONException
@@ -40,7 +40,7 @@ class InfoActivity : Activity() {
             socket.emit("client-exits", currentUser!!.email)
             mAuth.signOut()
             finish()
-            startActivity(Intent(this@InfoActivity, MainActivity::class.java))
+            startActivity(Intent(this@InfoActivity, LoginActivity::class.java))
         }
     }
 

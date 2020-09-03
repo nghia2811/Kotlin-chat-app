@@ -12,9 +12,9 @@ import com.project.firstkotlin.R
 import com.project.firstkotlin.entity.SocketSingleton
 import com.project.firstkotlin.chat.ChatActivity
 import com.project.firstkotlin.register.RegisterActivity
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_login.*
 
-class MainActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
 
     private lateinit var mAuth: FirebaseAuth
     //private var socket: Socket? = SocketComponent.instance?.socket
@@ -22,13 +22,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_login)
 
         socket.connect()
         // Initialize Firebase Auth
         mAuth = Firebase.auth
         if (mAuth.currentUser != null){
-            val intent = Intent(this@MainActivity, ChatActivity::class.java)
+            val intent = Intent(this@LoginActivity, ChatActivity::class.java)
             startActivity(intent)
         }
 
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         tv_register.setOnClickListener {
-            val intent = Intent(this@MainActivity, RegisterActivity::class.java)
+            val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
             startActivity(intent)
         }
     }
@@ -52,12 +52,13 @@ class MainActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    val intent = Intent(this@MainActivity, ChatActivity::class.java)
+                    val intent = Intent(this@LoginActivity, ChatActivity::class.java)
                     startActivity(intent)
                     Toast.makeText(
                         baseContext, "Authentication successful!",
                         Toast.LENGTH_SHORT
                     ).show()
+                    finish()
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.d("login", "signInWithEmail:failure", task.exception)
