@@ -3,6 +3,7 @@ package com.project.firstkotlin.info
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -30,6 +31,8 @@ class InfoActivity : Activity() {
         socket.emit("client-request-userlist")
         socket.on("server-send-userlist", onRetrieveResult)
 
+        info_loading.visibility = View.VISIBLE
+
         mAuth = Firebase.auth
         val currentUser = mAuth.currentUser
 
@@ -39,8 +42,10 @@ class InfoActivity : Activity() {
         btn_logout.setOnClickListener {
             socket.emit("client-exits", currentUser!!.email)
             mAuth.signOut()
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
             finish()
-            startActivity(Intent(this@InfoActivity, LoginActivity::class.java))
         }
     }
 
@@ -50,6 +55,7 @@ class InfoActivity : Activity() {
             val array = user.getJSONArray("danhsach")
             userList.clear()
             runOnUiThread {
+                info_loading.visibility = View.INVISIBLE
                 for (i in 0..array.length() - 1) {
                     userList.add(array.getString(i))
                 }

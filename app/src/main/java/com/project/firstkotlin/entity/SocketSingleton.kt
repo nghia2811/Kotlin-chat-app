@@ -4,7 +4,7 @@ import io.socket.client.IO
 import io.socket.client.Socket
 
 object SocketSingleton {
-    private var socket = IO.socket("http://192.168.1.185:3000/")
+    private var socket = IO.socket("https://first-server-nghia.herokuapp.com/")
     fun getSocket(): Socket {
         return socket
     }

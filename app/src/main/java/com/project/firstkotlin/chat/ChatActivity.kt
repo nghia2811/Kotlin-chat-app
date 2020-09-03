@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.project.firstkotlin.R
 import com.project.firstkotlin.entity.Message
@@ -22,6 +24,7 @@ import org.json.JSONObject
 class ChatActivity : AppCompatActivity() {
 
     private lateinit var mAuth: FirebaseAuth
+    private lateinit var mData: DatabaseReference
     private var socket = SocketSingleton.getSocket()
     var lstMessage: ArrayList<Message> = ArrayList()
     var messageAdapter: MessageAdapter? = null
@@ -36,6 +39,8 @@ class ChatActivity : AppCompatActivity() {
 
         mAuth = Firebase.auth
         val user = mAuth.currentUser
+//        mData = Firebase.database.reference
+//        mData.child("User").child(user!!.uid).setValue(user)
 
         messageAdapter = MessageAdapter(lstMessage)
 

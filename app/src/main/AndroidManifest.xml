@@ -16,7 +16,8 @@
         <activity android:name=".chat.ChatActivity" />
         <activity android:name=".info.InfoActivity" />
         <activity android:name=".register.RegisterActivity" />
-        <activity android:name=".login.LoginActivity">
+        <activity android:name=".login.LoginActivity"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
