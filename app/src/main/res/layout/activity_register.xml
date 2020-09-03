@@ -23,7 +23,12 @@
         android:layout_marginTop="40dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        app:cardCornerRadius="40dp"></androidx.cardview.widget.CardView>
+        app:cardCornerRadius="40dp">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/logo"/>
+    </androidx.cardview.widget.CardView>
     </RelativeLayout>
 
     <TextView

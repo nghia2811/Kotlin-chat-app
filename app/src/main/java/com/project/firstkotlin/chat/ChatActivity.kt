@@ -2,6 +2,7 @@ package com.project.firstkotlin.chat
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,6 +25,7 @@ class ChatActivity : AppCompatActivity() {
     private var socket = SocketSingleton.getSocket()
     var lstMessage: ArrayList<Message> = ArrayList()
     var messageAdapter: MessageAdapter? = null
+    private var doubleClick = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,6 +82,13 @@ class ChatActivity : AppCompatActivity() {
         } catch (e: JSONException) {
             e.printStackTrace()
         }
+    }
+
+    override fun onBackPressed() {
+        if (doubleClick) finish()
+        Toast.makeText(this, "Click 2 lần liên tiếp để thoát ứng dụng", Toast.LENGTH_SHORT).show()
+        doubleClick = true
+        Handler().postDelayed({ doubleClick = false }, 2000)
     }
 
 //    override fun onDestroy() {

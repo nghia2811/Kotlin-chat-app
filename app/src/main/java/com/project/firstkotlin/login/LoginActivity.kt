@@ -9,14 +9,15 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.project.firstkotlin.R
-import com.project.firstkotlin.entity.SocketSingleton
 import com.project.firstkotlin.chat.ChatActivity
+import com.project.firstkotlin.entity.SocketSingleton
 import com.project.firstkotlin.register.RegisterActivity
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var mAuth: FirebaseAuth
+
     //private var socket: Socket? = SocketComponent.instance?.socket
     private var socket = SocketSingleton.getSocket()
 
@@ -27,13 +28,13 @@ class LoginActivity : AppCompatActivity() {
         socket.connect()
         // Initialize Firebase Auth
         mAuth = Firebase.auth
-        if (mAuth.currentUser != null){
+        if (mAuth.currentUser != null) {
             val intent = Intent(this@LoginActivity, ChatActivity::class.java)
             startActivity(intent)
         }
 
         btn_login.setOnClickListener {
-            if (login_user.text.toString() == null || login_pass.text.toString() == null)
+            if (login_user.text.toString() == "" || login_pass.text.toString() == "")
                 Toast.makeText(this, "Vui lòng thêm đủ thông tin!!", Toast.LENGTH_SHORT).show()
             else {
                 socket.emit("client-register-user", login_user.text.toString())

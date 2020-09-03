@@ -23,6 +23,11 @@
             android:layout_marginTop="40dp"
             app:cardCornerRadius="40dp">
 
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/logo"/>
+
         </androidx.cardview.widget.CardView>
     </RelativeLayout>
 
