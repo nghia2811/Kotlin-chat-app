@@ -50,7 +50,7 @@
     <EditText
         android:id="@+id/register_user"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/edittext_selector"
         android:drawableLeft="@drawable/ic_baseline_account_circle_24"
@@ -63,7 +63,7 @@
     <EditText
         android:id="@+id/register_pass"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_marginTop="15dp"
         android:background="@drawable/edittext_selector"
         android:drawableLeft="@drawable/ic_baseline_lock_24"
@@ -76,7 +76,7 @@
     <EditText
         android:id="@+id/register_name"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_marginTop="15dp"
         android:background="@drawable/edittext_selector"
         android:drawableLeft="@drawable/ic_baseline_emoji_emotions_24"
@@ -88,7 +88,7 @@
     <EditText
         android:id="@+id/register_address"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_marginTop="15dp"
         android:background="@drawable/edittext_selector"
         android:drawableLeft="@drawable/ic_baseline_location_on_24"

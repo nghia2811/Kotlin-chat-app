@@ -51,11 +51,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?android:selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_baseline_edit_24" />
+
         <EditText
             android:id="@+id/edt_message"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="9"
+            android:layout_weight="8"
             android:padding="7dp"
             android:paddingStart="15dp"
             android:background="@drawable/edittext_border"

@@ -9,7 +9,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.project.firstkotlin.R
@@ -18,6 +21,7 @@ import com.project.firstkotlin.entity.SocketSingleton
 import com.project.firstkotlin.info.InfoActivity
 import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.activity_chat.*
+import kotlinx.android.synthetic.main.activity_login.*
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -39,8 +43,19 @@ class ChatActivity : AppCompatActivity() {
 
         mAuth = Firebase.auth
         val user = mAuth.currentUser
-//        mData = Firebase.database.reference
-//        mData.child("User").child(user!!.uid).setValue(user)
+
+        mData = Firebase.database.reference.child("User").child(user!!.uid)
+        mData.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // Setting values
+                chatHeading.text = "Chat - (${dataSnapshot.child("name").value.toString()})"
+                socket.emit("client-register-user", dataSnapshot.child("email").value.toString())
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                Toast.makeText(this@ChatActivity, "Cannot load data!", Toast.LENGTH_SHORT).show()
+            }
+        })
 
         messageAdapter = MessageAdapter(lstMessage)
 
@@ -51,8 +66,6 @@ class ChatActivity : AppCompatActivity() {
             // set the custom adapter to the RecyclerView
             adapter = messageAdapter
         }
-
-        chatHeading.text = "Chat group - (${user!!.email})"
 
         btn_send.setOnClickListener {
             if (!edt_message.text.toString().isEmpty()) {

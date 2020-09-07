@@ -20,6 +20,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth
 
     //private var socket: Socket? = SocketComponent.instance?.socket
+//    private var socket = SocketSingleton.socket
     private var socket = SocketSingleton.getSocket()
 
     override fun onCreate(savedInstanceState: Bundle?) {
