@@ -27,7 +27,6 @@ class ChatActivity : AppCompatActivity() {
 
     private var mAuth = Firebase.auth
     private lateinit var mData: DatabaseReference
-
     //    private var socket = SocketSingleton.getSocket()
     var lstMessage: ArrayList<Message> = ArrayList()
     var messageAdapter: MessageAdapter? = null
@@ -46,7 +45,7 @@ class ChatActivity : AppCompatActivity() {
         group = intent.getStringExtra("group")
         username = intent.getStringExtra("username")
 
-        messageAdapter = MessageAdapter(lstMessage)
+        messageAdapter = MessageAdapter(this, lstMessage)
         rv_message.apply {
             layoutManager = LinearLayoutManager(this@ChatActivity, RecyclerView.VERTICAL, false)
             adapter = messageAdapter
@@ -67,7 +66,6 @@ class ChatActivity : AppCompatActivity() {
     private fun loadMessageFromFirebase() {
         mData = Firebase.database.reference.child("Group").child(group!!).child("message")
         mData.addChildEventListener(object : ChildEventListener {
-
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 // Setting values
 //                lstMessage.clear()

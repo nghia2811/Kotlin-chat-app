@@ -12,6 +12,7 @@ import com.google.firebase.ktx.Firebase
 import com.project.firstkotlin.R
 import com.project.firstkotlin.chat.ChatActivity
 import com.project.firstkotlin.entity.SocketSingleton
+import com.project.firstkotlin.main.MainActivity
 import com.project.firstkotlin.register.RegisterActivity
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -48,7 +49,7 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    val intent = Intent(this@LoginActivity, ChatActivity::class.java)
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent)
                     Toast.makeText(
                         baseContext, "Authentication successful!",

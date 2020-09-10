@@ -51,4 +51,5 @@ class MainAdapter(val mContext: MainActivity, private val myDataset: ArrayList<S
     }
 
     override fun getItemCount() = myDataset.size
+
 }
