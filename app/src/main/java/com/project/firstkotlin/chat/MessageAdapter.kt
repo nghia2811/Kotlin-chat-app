@@ -38,7 +38,7 @@ class MessageAdapter(private val myDataset: ArrayList<Message>) :
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.username.text = myDataset[position].name
+        holder.username.text = myDataset[position].sender
         holder.message.text = myDataset[position].message
     }
 

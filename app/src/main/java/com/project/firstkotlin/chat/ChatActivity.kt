@@ -1,55 +1,73 @@
 package com.project.firstkotlin.chat
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.project.firstkotlin.R
 import com.project.firstkotlin.entity.Message
-import com.project.firstkotlin.entity.SocketSingleton
 import com.project.firstkotlin.info.InfoActivity
-import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.activity_chat.*
-import kotlinx.android.synthetic.main.activity_login.*
-import org.json.JSONException
-import org.json.JSONObject
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 
 class ChatActivity : AppCompatActivity() {
 
-    private lateinit var mAuth: FirebaseAuth
+    private var mAuth = Firebase.auth
     private lateinit var mData: DatabaseReference
-    private var socket = SocketSingleton.getSocket()
+
+    //    private var socket = SocketSingleton.getSocket()
     var lstMessage: ArrayList<Message> = ArrayList()
     var messageAdapter: MessageAdapter? = null
+    val user = mAuth.currentUser
     private var doubleClick = false
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
-        socket.connect()
-        socket.on("server-send-message", onListMessage)
+//        socket.connect()
+//        socket.on("server-send-message", onListMessage)
 
-        mAuth = Firebase.auth
-        val user = mAuth.currentUser
+//        var other = intent.getStringExtra("chatname")
 
-        mData = Firebase.database.reference.child("User").child(user!!.uid)
-        mData.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
+        mData = Firebase.database.reference.child("Group").child("FirstGroup").child("message")
+        mData.addChildEventListener(object : ChildEventListener {
+
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 // Setting values
-                chatHeading.text = "Chat - (${dataSnapshot.child("name").value.toString()})"
-                socket.emit("client-register-user", dataSnapshot.child("email").value.toString())
+//                lstMessage.clear()
+//                for (dataSnapshot1 in dataSnapshot.children) {
+                val p: Message? = snapshot.getValue(Message::class.java)
+                lstMessage.add(p!!)
+                messageAdapter?.notifyItemInserted(lstMessage.size - 1)
+                rv_message.smoothScrollToPosition(lstMessage.size - 1)
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                TODO("Not yet implemented")
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -60,27 +78,12 @@ class ChatActivity : AppCompatActivity() {
         messageAdapter = MessageAdapter(lstMessage)
 
         rv_message.apply {
-            // set a LinearLayoutManager to handle Android
-            // RecyclerView behavior
             layoutManager = LinearLayoutManager(this@ChatActivity, RecyclerView.VERTICAL, false)
-            // set the custom adapter to the RecyclerView
             adapter = messageAdapter
         }
 
         btn_send.setOnClickListener {
-            if (!edt_message.text.toString().isEmpty()) {
-                val obj = JSONObject()
-                try {
-                    obj.put("user", user.email.toString())
-                    obj.put("message", edt_message.text.toString())
-                    socket.emit("client-send-message", obj)
-                } catch (e: JSONException) {
-                    e.printStackTrace()
-                }
-
-                edt_message.setText(null)
-            } else
-                Toast.makeText(this, "Vui lòng nhập tin nhắn!", Toast.LENGTH_SHORT).show()
+            sendMessage(edt_message.text.toString())
         }
 
         btn_options.setOnClickListener {
@@ -89,17 +92,43 @@ class ChatActivity : AppCompatActivity() {
         }
     }
 
-    private val onListMessage = Emitter.Listener { args ->
-        try {
-            var message = args[0] as JSONObject
-            runOnUiThread {
-                lstMessage.add(Message(message.getString("user"), message.getString("message")))
-                messageAdapter?.notifyItemInserted(lstMessage.size - 1)
-                rv_message.smoothScrollToPosition(lstMessage.size - 1)
-            }
-        } catch (e: JSONException) {
-            e.printStackTrace()
-        }
+//    private val onListMessage = Emitter.Listener { args ->
+//        try {
+//            var message = args[0] as JSONObject
+//            runOnUiThread {
+//                lstMessage.add(Message(message.getString("user"), message.getString("message")))
+//                messageAdapter?.notifyItemInserted(lstMessage.size - 1)
+//                rv_message.smoothScrollToPosition(lstMessage.size - 1)
+//            }
+//        } catch (e: JSONException) {
+//            e.printStackTrace()
+//        }
+//    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun sendMessage(message: String) {
+        if (!message.isEmpty()) {
+//            val obj = JSONObject()
+//            try {
+//                obj.put("user", user!!.email.toString())
+//                obj.put("message", message)
+//                socket.emit("client-send-message", obj)
+//
+//            } catch (e: JSONException) {
+//                e.printStackTrace()
+//            }
+
+            val current = LocalDateTime.now()
+
+            val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
+            val formatted = current.format(formatter)
+            val sendmessage = user?.uid?.let { Message(formatted, it, message) }
+            Firebase.database.reference.child("Group").child("FirstGroup").child("message").child(
+                formatted
+            ).setValue(sendmessage)
+            edt_message.setText(null)
+        } else
+            Toast.makeText(this, "Vui lòng nhập tin nhắn!", Toast.LENGTH_SHORT).show()
     }
 
     override fun onBackPressed() {

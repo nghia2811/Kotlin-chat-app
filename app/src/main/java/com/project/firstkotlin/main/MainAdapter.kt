@@ -1,28 +1,32 @@
 package com.project.firstkotlin.main
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.project.firstkotlin.entity.Message
 import com.project.firstkotlin.R
+import com.project.firstkotlin.chat.ChatActivity
 import com.project.firstkotlin.entity.Group
+import com.project.firstkotlin.entity.User
+import com.project.firstkotlin.register.RegisterActivity
 
-class MainAdapter(private val myDataset: ArrayList<Group>) :
+class MainAdapter(val context: Context, private val myDataset: ArrayList<User>) :
     RecyclerView.Adapter<MainAdapter.MyViewHolder>() {
 
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder.
-    // Each data item is just a string in this case that is shown in a TextView.
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var username: TextView
-        var message: TextView
+        var layout: LinearLayout
+//        var message: TextView
 
         init {
-            username = itemView.findViewById(R.id.tv_username)
-            message = itemView.findViewById(R.id.tv_message)
+            username = itemView.findViewById(R.id.tv_chatname)
+            layout = itemView.findViewById(R.id.layout_chat)
+//            message = itemView.findViewById(R.id.tv_message)
         }
     }
 
@@ -30,18 +34,19 @@ class MainAdapter(private val myDataset: ArrayList<Group>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         // create a new view
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_message, parent, false)
+            .inflate(R.layout.item_chat, parent, false)
 
         return MyViewHolder(view)
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
         holder.username.text = myDataset[position].name
+        holder.layout.setOnClickListener {
+            var intent = Intent(context, ChatActivity::class.java)
+            intent.putExtra("chatname", myDataset[position].email)
+            context.startActivity(intent)
+        }
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = myDataset.size
 }
