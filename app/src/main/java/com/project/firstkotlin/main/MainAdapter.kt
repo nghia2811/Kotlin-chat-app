@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.project.firstkotlin.entity.Message
@@ -15,12 +16,12 @@ import com.project.firstkotlin.entity.Group
 import com.project.firstkotlin.entity.User
 import com.project.firstkotlin.register.RegisterActivity
 
-class MainAdapter(val context: Context, private val myDataset: ArrayList<User>) :
+class MainAdapter(val mContext: MainActivity, private val myDataset: ArrayList<String>) :
     RecyclerView.Adapter<MainAdapter.MyViewHolder>() {
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var username: TextView
-        var layout: LinearLayout
+        var layout: RelativeLayout
 //        var message: TextView
 
         init {
@@ -40,11 +41,12 @@ class MainAdapter(val context: Context, private val myDataset: ArrayList<User>) 
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.username.text = myDataset[position].name
+        holder.username.text = myDataset[position]
         holder.layout.setOnClickListener {
-            var intent = Intent(context, ChatActivity::class.java)
-            intent.putExtra("chatname", myDataset[position].email)
-            context.startActivity(intent)
+            var intent = Intent(mContext, ChatActivity::class.java)
+            intent.putExtra("group", myDataset[position])
+            intent.putExtra("username", mContext.username)
+            mContext.startActivity(intent)
         }
     }
 

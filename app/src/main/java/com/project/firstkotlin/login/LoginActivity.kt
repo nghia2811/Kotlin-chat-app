@@ -18,9 +18,6 @@ import kotlinx.android.synthetic.main.activity_login.*
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var mAuth: FirebaseAuth
-
-    //private var socket: Socket? = SocketComponent.instance?.socket
-//    private var socket = SocketSingleton.socket
     private var socket = SocketSingleton.getSocket()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,10 +27,6 @@ class LoginActivity : AppCompatActivity() {
         socket.connect()
         // Initialize Firebase Auth
         mAuth = Firebase.auth
-        if (mAuth.currentUser != null) {
-            val intent = Intent(this@LoginActivity, ChatActivity::class.java)
-            startActivity(intent)
-        }
 
         btn_login.setOnClickListener {
             if (login_user.text.toString() == "" || login_pass.text.toString() == "")

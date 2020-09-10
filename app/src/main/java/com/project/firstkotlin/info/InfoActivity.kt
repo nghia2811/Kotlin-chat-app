@@ -19,7 +19,7 @@ import org.json.JSONObject
 class InfoActivity : Activity() {
 
     private lateinit var mAuth: FirebaseAuth
-    private var socket = SocketSingleton.getSocket()
+//    private var socket = SocketSingleton.getSocket()
     var arrayAdapter: ArrayAdapter<String>? = null
     var userList = arrayListOf<String>()
 
@@ -27,11 +27,11 @@ class InfoActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_info)
 
-        socket.connect()
-        socket.emit("client-request-userlist")
-        socket.on("server-send-userlist", onRetrieveResult)
+//        socket.connect()
+//        socket.emit("client-request-userlist")
+//        socket.on("server-send-userlist", onRetrieveResult)
 
-        info_loading.visibility = View.VISIBLE
+//        info_loading.visibility = View.VISIBLE
 
         mAuth = Firebase.auth
         val currentUser = mAuth.currentUser
@@ -40,7 +40,7 @@ class InfoActivity : Activity() {
         rv_user.adapter = arrayAdapter
 
         btn_logout.setOnClickListener {
-            socket.emit("client-exits", currentUser!!.email)
+//            socket.emit("client-exits", currentUser!!.email)
             mAuth.signOut()
             val intent = Intent(this, LoginActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK

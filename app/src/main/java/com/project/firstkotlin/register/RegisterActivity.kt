@@ -14,6 +14,7 @@ import com.project.firstkotlin.R
 import com.project.firstkotlin.entity.SocketSingleton
 import com.project.firstkotlin.entity.User
 import com.project.firstkotlin.login.LoginActivity
+import com.project.firstkotlin.main.MainActivity
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_register.*
 import java.util.regex.Pattern
@@ -63,10 +64,9 @@ class RegisterActivity : AppCompatActivity() {
         mAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    var user = User(email, password, register_name.text.toString(), register_address.text.toString())
                     var mUser = mAuth.currentUser
+                    var user = User(mUser!!.uid, email, register_name.text.toString(), register_address.text.toString(), arrayListOf("FirstGroup"))
                     mData = Firebase.database.reference
-                    Log.d("id", mUser!!.uid)
                     mData.child("User").child(mUser!!.uid).setValue(user)
                     socket.emit("client-register-user", email)
                     register_loading.visibility = View.INVISIBLE
@@ -75,7 +75,7 @@ class RegisterActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                     // Sign in success, update UI with the signed-in user's information
-                    val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                    val intent = Intent(this@RegisterActivity, MainActivity::class.java)
                     startActivity(intent)
                 } else {
                     // If sign in fails, display a message to the user.

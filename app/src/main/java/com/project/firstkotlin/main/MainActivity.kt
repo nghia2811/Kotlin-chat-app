@@ -2,6 +2,7 @@ package com.project.firstkotlin.main
 
 import android.os.Bundle
 import android.os.Handler
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,33 +25,42 @@ class MainActivity : AppCompatActivity() {
     private var doubleClick = false
     private lateinit var mAuth: FirebaseAuth
     private lateinit var mData: DatabaseReference
-    var lstUser: ArrayList<User> = ArrayList()
-    var userAdapter: MainAdapter = MainAdapter(this, lstUser)
+    var lstUser: ArrayList<String> = ArrayList()
+    var mainAdapter: MainAdapter? = null
+    var username: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         mAuth = Firebase.auth
-        val user = mAuth.currentUser
 
+        mainAdapter = MainAdapter(this, lstUser)
         rv_chat.apply {
             layoutManager = LinearLayoutManager(this@MainActivity, RecyclerView.VERTICAL, false)
-            adapter = userAdapter
+            adapter = mainAdapter
         }
 
-        mData = Firebase.database.reference.child("User")
+        loadDataFromFirebase()
+    }
+
+    private fun loadDataFromFirebase(){
+        val user = mAuth.currentUser
+        mData = Firebase.database.reference.child("User").child(user!!.uid)
         mData.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // Setting values
-                for (dataSnapshot1 in dataSnapshot.getChildren()) {
-                    val p: User? = dataSnapshot1.getValue(User::class.java)
-                    lstUser.add(p!!)
-                }
-                userAdapter.notifyDataSetChanged()
+                lstUser.clear()
+                val p: User? = dataSnapshot.getValue(User::class.java)
+                username = p!!.name
+                for (element in p.group)
+                    lstUser.add(element)
+                mainAdapter!!.notifyDataSetChanged()
+                main_loading.visibility = View.GONE
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
+                main_loading.visibility = View.GONE
                 Toast.makeText(this@MainActivity, "Cannot load data!", Toast.LENGTH_SHORT).show()
             }
         })

@@ -3,7 +3,6 @@ package com.project.firstkotlin.chat
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -33,7 +32,8 @@ class ChatActivity : AppCompatActivity() {
     var lstMessage: ArrayList<Message> = ArrayList()
     var messageAdapter: MessageAdapter? = null
     val user = mAuth.currentUser
-    private var doubleClick = false
+    var group: String? = null
+    var username: String? = null
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,9 +43,29 @@ class ChatActivity : AppCompatActivity() {
 //        socket.connect()
 //        socket.on("server-send-message", onListMessage)
 
-//        var other = intent.getStringExtra("chatname")
+        group = intent.getStringExtra("group")
+        username = intent.getStringExtra("username")
 
-        mData = Firebase.database.reference.child("Group").child("FirstGroup").child("message")
+        messageAdapter = MessageAdapter(lstMessage)
+        rv_message.apply {
+            layoutManager = LinearLayoutManager(this@ChatActivity, RecyclerView.VERTICAL, false)
+            adapter = messageAdapter
+        }
+
+        loadMessageFromFirebase()
+
+        btn_send.setOnClickListener {
+            sendMessage(edt_message.text.toString())
+        }
+
+        btn_options.setOnClickListener {
+            val intent = Intent(this, InfoActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun loadMessageFromFirebase() {
+        mData = Firebase.database.reference.child("Group").child(group!!).child("message")
         mData.addChildEventListener(object : ChildEventListener {
 
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
@@ -75,23 +95,7 @@ class ChatActivity : AppCompatActivity() {
             }
         })
 
-        messageAdapter = MessageAdapter(lstMessage)
-
-        rv_message.apply {
-            layoutManager = LinearLayoutManager(this@ChatActivity, RecyclerView.VERTICAL, false)
-            adapter = messageAdapter
-        }
-
-        btn_send.setOnClickListener {
-            sendMessage(edt_message.text.toString())
-        }
-
-        btn_options.setOnClickListener {
-            val intent = Intent(this, InfoActivity::class.java)
-            startActivity(intent)
-        }
     }
-
 //    private val onListMessage = Emitter.Listener { args ->
 //        try {
 //            var message = args[0] as JSONObject
@@ -122,20 +126,13 @@ class ChatActivity : AppCompatActivity() {
 
             val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
             val formatted = current.format(formatter)
-            val sendmessage = user?.uid?.let { Message(formatted, it, message) }
-            Firebase.database.reference.child("Group").child("FirstGroup").child("message").child(
-                formatted
-            ).setValue(sendmessage)
+            val sendmessage = Message(formatted, username!!, message)
+
+            Firebase.database.reference.child("Group").child(group!!).child("message")
+                .child(formatted).setValue(sendmessage)
             edt_message.setText(null)
         } else
             Toast.makeText(this, "Vui lòng nhập tin nhắn!", Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onBackPressed() {
-        if (doubleClick) finish()
-        Toast.makeText(this, "Click 2 lần liên tiếp để thoát ứng dụng", Toast.LENGTH_SHORT).show()
-        doubleClick = true
-        Handler().postDelayed({ doubleClick = false }, 2000)
     }
 
 //    override fun onDestroy() {

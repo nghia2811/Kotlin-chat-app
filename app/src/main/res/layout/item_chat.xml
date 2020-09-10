@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layout_chat"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/tv_chatname"
@@ -12,10 +11,17 @@
         android:layout_height="wrap_content"
         android:text="Username"
         android:textSize="18sp"
-        android:layout_marginStart="10dp"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="40dp"
         android:textColor="@color/colorBlack"
         android:textStyle="bold"
         />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorGray"/>
 
 <!--    <TextView-->
 <!--        android:id="@+id/tv_message"-->
@@ -29,4 +35,4 @@
 <!--        android:textColor="@color/colorBlack"-->
 <!--        android:textSize="17sp"/>-->
 
-</LinearLayout>
+</RelativeLayout>
