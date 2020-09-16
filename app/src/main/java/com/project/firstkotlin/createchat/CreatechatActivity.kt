@@ -1,8 +1,6 @@
-package com.project.firstkotlin.main
+package com.project.firstkotlin.createchat
 
-import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -17,65 +15,57 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.project.firstkotlin.R
-import com.project.firstkotlin.createchat.CreatechatActivity
 import com.project.firstkotlin.entity.User
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_createchat.*
 import java.util.*
 
-class MainActivity : AppCompatActivity() {
+class CreatechatActivity : AppCompatActivity() {
 
-    private var doubleClick = false
     private lateinit var mAuth: FirebaseAuth
     private lateinit var mData: DatabaseReference
     var lstUser: ArrayList<String> = ArrayList()
-    var mainAdapter: MainAdapter? = null
+    var mainAdapter: CreatechatAdapter? = null
     var username: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_createchat)
 
         mAuth = Firebase.auth
 
-        mainAdapter = MainAdapter(this, lstUser)
-        rv_chat.apply {
-            layoutManager = LinearLayoutManager(this@MainActivity, RecyclerView.VERTICAL, false)
+        mainAdapter = CreatechatAdapter(this, lstUser)
+        rv_search.apply {
+            layoutManager =
+                LinearLayoutManager(this@CreatechatActivity, RecyclerView.VERTICAL, false)
             adapter = mainAdapter
         }
 
-        floatingActionButton.setOnClickListener {
-            startActivity(Intent(this@MainActivity, CreatechatActivity::class.java))
-        }
-
         loadDataFromFirebase()
+
+        edt_search.requestFocus()
+        back_to_main.setOnClickListener { super.onBackPressed() }
     }
 
-    private fun loadDataFromFirebase(){
+
+    private fun loadDataFromFirebase() {
         val user = mAuth.currentUser
-        mData = Firebase.database.reference.child("User").child(user!!.uid)
+        mData = Firebase.database.reference.child("User")
         mData.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // Setting values
                 lstUser.clear()
-                val p: User? = dataSnapshot.getValue(User::class.java)
-                username = p!!.name
-                for (element in p.group)
-                    lstUser.add(element)
+                dataSnapshot.children.forEach {
+                    it.getValue(User::class.java)?.name?.let { it1 -> lstUser.add(it1) }
+                }
                 mainAdapter!!.notifyDataSetChanged()
-                main_loading.visibility = View.GONE
+                create_loading.visibility = View.GONE
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                main_loading.visibility = View.GONE
-                Toast.makeText(this@MainActivity, "Cannot load data!", Toast.LENGTH_SHORT).show()
+                create_loading.visibility = View.GONE
+                Toast.makeText(this@CreatechatActivity, "Cannot load data!", Toast.LENGTH_SHORT)
+                    .show()
             }
         })
-    }
-
-    override fun onBackPressed() {
-        if (doubleClick) finish()
-        Toast.makeText(this, "Click 2 lần liên tiếp để thoát ứng dụng", Toast.LENGTH_SHORT).show()
-        doubleClick = true
-        Handler().postDelayed({ doubleClick = false }, 2000)
     }
 }

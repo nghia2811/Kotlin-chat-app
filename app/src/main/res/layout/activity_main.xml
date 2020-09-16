@@ -27,18 +27,10 @@
             android:id="@+id/btn_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/btn_createchat"
-            android:layout_marginRight="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="15dp"
             android:background="?android:selectableItemBackgroundBorderless"
             android:src="@drawable/ic_baseline_search_24" />
-
-        <ImageView
-            android:id="@+id/btn_createchat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:background="?android:selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_baseline_edit_24" />
     </RelativeLayout>
 
     <LinearLayout
@@ -53,6 +45,7 @@
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_chat"
@@ -72,5 +65,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
     </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        app:srcCompat="@drawable/ic_baseline_add_24"
+        app:layout_constraintBottom_toTopOf="@id/navigation_chat"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

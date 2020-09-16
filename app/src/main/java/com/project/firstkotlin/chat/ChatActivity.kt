@@ -3,6 +3,7 @@ package com.project.firstkotlin.chat
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -27,12 +28,14 @@ class ChatActivity : AppCompatActivity() {
 
     private var mAuth = Firebase.auth
     private lateinit var mData: DatabaseReference
+
     //    private var socket = SocketSingleton.getSocket()
     var lstMessage: ArrayList<Message> = ArrayList()
     var messageAdapter: MessageAdapter? = null
     val user = mAuth.currentUser
     var group: String? = null
     var username: String? = null
+    var another: String? = null
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +47,7 @@ class ChatActivity : AppCompatActivity() {
 
         group = intent.getStringExtra("group")
         username = intent.getStringExtra("username")
+        another = intent.getStringExtra("another")
 
         messageAdapter = MessageAdapter(this, lstMessage)
         rv_message.apply {
@@ -51,7 +55,9 @@ class ChatActivity : AppCompatActivity() {
             adapter = messageAdapter
         }
 
-        loadMessageFromFirebase()
+        if(group != null) {
+            loadMessageFromFirebase()
+        }
 
         btn_send.setOnClickListener {
             sendMessage(edt_message.text.toString())
@@ -92,7 +98,7 @@ class ChatActivity : AppCompatActivity() {
                 Toast.makeText(this@ChatActivity, "Cannot load data!", Toast.LENGTH_SHORT).show()
             }
         })
-
+        chat_loading.visibility = View.GONE
     }
 //    private val onListMessage = Emitter.Listener { args ->
 //        try {
