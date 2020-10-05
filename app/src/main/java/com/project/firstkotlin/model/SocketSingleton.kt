@@ -1,4 +1,4 @@
-package com.project.firstkotlin.entity
+package com.project.firstkotlin.model
 
 import io.socket.client.IO
 import io.socket.client.Socket

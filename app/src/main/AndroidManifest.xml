@@ -7,24 +7,28 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
+        android:name=".MyApplication"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".createchat.CreatechatActivity"></activity>
-        <activity android:name=".main.MainActivity" />
-        <activity android:name=".chat.ChatActivity" />
-        <activity android:name=".info.InfoActivity" />
-        <activity android:name=".register.RegisterActivity" />
-        <activity android:name=".splash.SplashActivity">
+        <activity android:name=".screens.demo.DemoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".login.LoginActivity"></activity>
+        <activity android:name=".screens.createchat.CreatechatActivity" />
+        <activity android:name=".screens.main.MainActivity" />
+        <activity android:name=".screens.chat.ChatActivity" />
+        <activity android:name=".screens.info.InfoActivity" />
+        <activity android:name=".screens.register.RegisterActivity" />
+        <activity android:name=".screens.login.LoginActivity" />
+        <activity android:name=".screens.splash.SplashActivity">
+
+        </activity>
     </application>
 
 </manifest>

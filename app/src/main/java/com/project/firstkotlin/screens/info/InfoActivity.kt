@@ -1,4 +1,4 @@
-package com.project.firstkotlin.info
+package com.project.firstkotlin.screens.info
 
 import android.app.Activity
 import android.content.Intent
@@ -9,8 +9,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.project.firstkotlin.R
-import com.project.firstkotlin.entity.SocketSingleton
-import com.project.firstkotlin.login.LoginActivity
+import com.project.firstkotlin.screens.login.LoginActivity
 import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.activity_info.*
 import org.json.JSONException

@@ -1,8 +1,7 @@
-package com.project.firstkotlin.login
+package com.project.firstkotlin.screens.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -10,10 +9,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.project.firstkotlin.R
-import com.project.firstkotlin.chat.ChatActivity
-import com.project.firstkotlin.entity.SocketSingleton
-import com.project.firstkotlin.main.MainActivity
-import com.project.firstkotlin.register.RegisterActivity
+import com.project.firstkotlin.model.SocketSingleton
+import com.project.firstkotlin.screens.main.MainActivity
+import com.project.firstkotlin.screens.register.RegisterActivity
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package com.project.firstkotlin.splash
+package com.project.firstkotlin.screens.splash
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,9 +8,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.project.firstkotlin.R
-import com.project.firstkotlin.chat.ChatActivity
-import com.project.firstkotlin.login.LoginActivity
-import com.project.firstkotlin.main.MainActivity
+import com.project.firstkotlin.screens.login.LoginActivity
+import com.project.firstkotlin.screens.main.MainActivity
 
 class SplashActivity : AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth

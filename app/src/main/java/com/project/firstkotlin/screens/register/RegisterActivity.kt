@@ -1,8 +1,7 @@
-package com.project.firstkotlin.register
+package com.project.firstkotlin.screens.register
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -11,11 +10,9 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.project.firstkotlin.R
-import com.project.firstkotlin.entity.SocketSingleton
-import com.project.firstkotlin.entity.User
-import com.project.firstkotlin.login.LoginActivity
-import com.project.firstkotlin.main.MainActivity
-import kotlinx.android.synthetic.main.activity_login.*
+import com.project.firstkotlin.model.SocketSingleton
+import com.project.firstkotlin.model.User
+import com.project.firstkotlin.screens.main.MainActivity
 import kotlinx.android.synthetic.main.activity_register.*
 import java.util.regex.Pattern
 

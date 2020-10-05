@@ -1,4 +1,4 @@
-package com.project.firstkotlin.createchat
+package com.project.firstkotlin.screens.createchat
 
 import android.os.Bundle
 import android.view.View
@@ -15,7 +15,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.project.firstkotlin.R
-import com.project.firstkotlin.entity.User
+import com.project.firstkotlin.model.User
 import kotlinx.android.synthetic.main.activity_createchat.*
 import java.util.*
 

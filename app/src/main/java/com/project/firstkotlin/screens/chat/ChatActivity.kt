@@ -1,4 +1,4 @@
-package com.project.firstkotlin.chat
+package com.project.firstkotlin.screens.chat
 
 import android.content.Intent
 import android.os.Build
@@ -17,8 +17,8 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.project.firstkotlin.R
-import com.project.firstkotlin.entity.Message
-import com.project.firstkotlin.info.InfoActivity
+import com.project.firstkotlin.model.Message
+import com.project.firstkotlin.screens.info.InfoActivity
 import kotlinx.android.synthetic.main.activity_chat.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter

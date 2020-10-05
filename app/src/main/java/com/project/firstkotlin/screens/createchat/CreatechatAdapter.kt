@@ -1,23 +1,17 @@
-package com.project.firstkotlin.main
+package com.project.firstkotlin.screens.createchat
 
-import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.project.firstkotlin.entity.Message
 import com.project.firstkotlin.R
-import com.project.firstkotlin.chat.ChatActivity
-import com.project.firstkotlin.entity.Group
-import com.project.firstkotlin.entity.User
-import com.project.firstkotlin.register.RegisterActivity
+import com.project.firstkotlin.screens.chat.ChatActivity
 
-class MainAdapter(val mContext: MainActivity, private val myDataset: ArrayList<String>) :
-    RecyclerView.Adapter<MainAdapter.MyViewHolder>() {
+class CreatechatAdapter(val mContext: CreatechatActivity, private val myDataset: ArrayList<String>) :
+    RecyclerView.Adapter<CreatechatAdapter.MyViewHolder>() {
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var username: TextView
@@ -44,8 +38,7 @@ class MainAdapter(val mContext: MainActivity, private val myDataset: ArrayList<S
         holder.username.text = myDataset[position]
         holder.layout.setOnClickListener {
             var intent = Intent(mContext, ChatActivity::class.java)
-            intent.putExtra("group", myDataset[position])
-            intent.putExtra("username", mContext.username)
+            intent.putExtra("another", myDataset[position])
             mContext.startActivity(intent)
         }
     }

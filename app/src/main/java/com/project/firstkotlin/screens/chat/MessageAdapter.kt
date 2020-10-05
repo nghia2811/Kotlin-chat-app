@@ -1,4 +1,4 @@
-package com.project.firstkotlin.chat
+package com.project.firstkotlin.screens.chat
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.project.firstkotlin.R
-import com.project.firstkotlin.entity.Message
+import com.project.firstkotlin.model.Message
 
 class MessageAdapter(val mContext: ChatActivity, private val myDataset: ArrayList<Message>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
