@@ -1,0 +1,106 @@
+package com.project.firstkotlin.ui.chat
+
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import com.project.firstkotlin.R
+import com.project.firstkotlin.data.model.Message
+import com.project.firstkotlin.data.model.User
+
+class MessageAdapter(private val context: Context) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private var messages = mutableListOf<Message>()
+    private var mAuth: FirebaseAuth  = Firebase.auth
+    private lateinit var mData: DatabaseReference
+    private lateinit var username: String
+
+    // Provide a reference to the views for each data item
+    // Complex data items may need more than one view per item, and
+    // you provide access to all the views for a data item in a view holder.
+    // Each data item is just a string in this case that is shown in a TextView.
+    class FriendViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val tusername: TextView = itemView.findViewById(R.id.tv_username)
+        private var tmessage: TextView = itemView.findViewById(R.id.tv_message)
+
+        fun onBind(message: Message) {
+            tusername.text = message.sender
+            tmessage.text = message.message
+        }
+    }
+
+    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val tusername: TextView = itemView.findViewById(R.id.tv_myusername)
+        private var tmessage: TextView = itemView.findViewById(R.id.tv_mymessage)
+
+        fun onBind(message: Message) {
+            tusername.text = message.sender
+            tmessage.text = message.message
+        }
+    }
+
+    // Create new views (invoked by the layout manager)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        // create a new view
+        val view: View
+        return if (viewType === 0) { // for call layout
+            view = LayoutInflater.from(parent.context).inflate(R.layout.item_message, parent, false)
+            FriendViewHolder(view)
+        } else { // for email layout
+            view = LayoutInflater.from(parent.context).inflate(
+                R.layout.item_mymessage,
+                parent,
+                false
+            )
+            MyViewHolder(view)
+        }
+    }
+
+    // Replace the contents of a view (invoked by the layout manager)
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (getItemViewType(position) === 0) {
+            (holder as FriendViewHolder).onBind(messages[position])
+        } else {
+            (holder as MyViewHolder).onBind(messages[position])
+        }
+    }
+
+    // Return the size of your dataset (invoked by the layout manager)
+    override fun getItemCount(): Int = messages.size
+
+    override fun getItemViewType(position: Int): Int {
+        loadDataFromFirebase()
+        if (messages[position].sender == username) return 1
+        else return 0
+    }
+
+    fun setMessages(messages: MutableList<Message>){
+        this.messages = messages
+        notifyDataSetChanged()
+    }
+
+    private fun loadDataFromFirebase(){
+        val user = mAuth.currentUser
+        mData = Firebase.database.reference.child("User").child(user!!.uid)
+        mData.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // Setting values
+                val p: User? = dataSnapshot.getValue(User::class.java)
+                username = p!!.name
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+            }
+        })
+    }
+}

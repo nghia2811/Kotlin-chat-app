@@ -1,6 +1,6 @@
 package com.project.firstkotlin.di
 
-import com.project.firstkotlin.screens.demo.DemoActivity
+import com.project.firstkotlin.ui.demo.DemoActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
