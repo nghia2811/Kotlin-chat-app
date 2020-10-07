@@ -10,7 +10,6 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.project.firstkotlin.R
 import com.project.firstkotlin.screens.login.LoginActivity
-import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.activity_info.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -39,7 +38,6 @@ class InfoActivity : Activity() {
         rv_user.adapter = arrayAdapter
 
         btn_logout.setOnClickListener {
-//            socket.emit("client-exits", currentUser!!.email)
             mAuth.signOut()
             val intent = Intent(this, LoginActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
@@ -48,25 +46,4 @@ class InfoActivity : Activity() {
         }
     }
 
-    private var onRetrieveResult = Emitter.Listener { args ->
-        try {
-            var user = args[0] as JSONObject
-            val array = user.getJSONArray("danhsach")
-            userList.clear()
-            runOnUiThread {
-                info_loading.visibility = View.INVISIBLE
-                for (i in 0..array.length() - 1) {
-                    userList.add(array.getString(i))
-                }
-                arrayAdapter?.notifyDataSetChanged()
-            }
-        } catch (e: JSONException) {
-            e.printStackTrace()
-        }
-    }
-
-//    override fun onDestroy() {
-//        super.onDestroy()
-//        socket.close()
-//    }
 }

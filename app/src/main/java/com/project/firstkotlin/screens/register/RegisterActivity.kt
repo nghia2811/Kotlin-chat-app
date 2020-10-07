@@ -10,7 +10,6 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.project.firstkotlin.R
-import com.project.firstkotlin.model.SocketSingleton
 import com.project.firstkotlin.model.User
 import com.project.firstkotlin.screens.main.MainActivity
 import kotlinx.android.synthetic.main.activity_register.*
@@ -20,7 +19,6 @@ class RegisterActivity : AppCompatActivity() {
 
     private lateinit var mAuth: FirebaseAuth
     private lateinit var mData: DatabaseReference
-    private var socket = SocketSingleton.getSocket()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +63,6 @@ class RegisterActivity : AppCompatActivity() {
                     var user = User(mUser!!.uid, email, register_name.text.toString(), register_address.text.toString(), arrayListOf("FirstGroup"))
                     mData = Firebase.database.reference
                     mData.child("User").child(mUser!!.uid).setValue(user)
-                    socket.emit("client-register-user", email)
                     register_loading.visibility = View.INVISIBLE
                     Toast.makeText(
                         baseContext, "Successful registration!",

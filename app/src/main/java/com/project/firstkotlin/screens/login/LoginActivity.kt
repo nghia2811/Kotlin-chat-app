@@ -9,21 +9,18 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.project.firstkotlin.R
-import com.project.firstkotlin.model.SocketSingleton
 import com.project.firstkotlin.screens.main.MainActivity
 import com.project.firstkotlin.screens.register.RegisterActivity
 import kotlinx.android.synthetic.main.activity_login.*
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity(), LoginContract.LoginView, LoginContract.LoginPresenter, View.OnClickListener {
 
     private lateinit var mAuth: FirebaseAuth
-    private var socket = SocketSingleton.getSocket()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        socket.connect()
         // Initialize Firebase Auth
         mAuth = Firebase.auth
 
@@ -36,8 +33,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         tv_register.setOnClickListener {
-            val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
-            startActivity(intent)
+            goToRegister()
         }
     }
 
@@ -47,15 +43,9 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                    startActivity(intent)
-                    Toast.makeText(
-                        baseContext, "Authentication successful!",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    socket.emit("client-register-user", login_user.text.toString())
+
                     login_loading.visibility = View.INVISIBLE
-                    finish()
+                    goToMain()
                 } else {
                     // If sign in fails, display a message to the user.
                     Toast.makeText(
@@ -65,6 +55,41 @@ class LoginActivity : AppCompatActivity() {
                     login_loading.visibility = View.INVISIBLE
                 }
             }
+    }
+
+    override fun goToRegister() {
+        val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
+        startActivity(intent)
+    }
+
+    override fun goToMain() {
+        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+        startActivity(intent)
+        Toast.makeText(
+            baseContext, "Authentication successful!",
+            Toast.LENGTH_SHORT
+        ).show()
+        finish()
+    }
+
+    override fun onClick(p0: View?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onViewAttach(view: LoginContract.LoginView?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onViewDetach() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onLoginClick() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onRegisterClick() {
+        TODO("Not yet implemented")
     }
 
 //    override fun onDestroy() {
