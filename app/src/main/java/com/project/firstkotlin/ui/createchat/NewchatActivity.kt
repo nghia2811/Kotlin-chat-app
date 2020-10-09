@@ -44,7 +44,7 @@ class NewchatActivity : AppCompatActivity() {
     }
 
     private fun loadDataFromFirebase() {
-        lstUser = newchatViewModel.loadDataFromFirebase()
+//        lstUser = newchatViewModel.loadDataFromFirebase()
         mainAdapter!!.notifyDataSetChanged()
         create_loading.visibility = View.GONE
     }

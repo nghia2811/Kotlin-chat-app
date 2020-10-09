@@ -79,9 +79,9 @@ class MessageAdapter(private val context: Context) :
     override fun getItemCount(): Int = messages.size
 
     override fun getItemViewType(position: Int): Int {
-        loadDataFromFirebase()
-        if (messages[position].sender == username) return 1
-        else return 0
+//        loadDataFromFirebase()
+//        if (messages[position].sender == username) return 1
+        return 0
     }
 
     fun setMessages(messages: MutableList<Message>){

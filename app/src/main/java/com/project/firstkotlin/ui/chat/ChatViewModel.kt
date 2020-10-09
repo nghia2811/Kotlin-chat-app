@@ -11,14 +11,16 @@ import com.project.firstkotlin.data.model.Message
 class ChatViewModel(application: Application) : ViewModel() {
     val chatRepository = MessageRepository()
 
-    fun fetchMessages(): LiveData<MutableList<Message>> {
-        val mutableData = MutableLiveData<MutableList<Message>>()
-        chatRepository.getMessages().observeForever {
-            mutableData.value = it
-        }
+    val mutableData = chatRepository.mutableData
 
-        return mutableData
-    }
+//    fun fetchMessages(): LiveData<MutableList<Message>> {
+//        val mutableData = MutableLiveData<MutableList<Message>>()
+//        chatRepository.getMessages().observeForever {
+//            mutableData.value = it
+//        }
+//
+//        return mutableData
+//    }
 
 
     class ChatViewModelFactory(private val application: Application) : ViewModelProvider.Factory {

@@ -35,14 +35,14 @@ class ChatActivity : AppCompatActivity() {
         setContentView(R.layout.activity_chat)
 
         initControls()
+        initEvents()
 
         group = intent.getStringExtra("group")
         username = intent.getStringExtra("username")
 
-        if (group != null) {
+    }
 
-        }
-
+    private fun initEvents() {
         btn_send.setOnClickListener {
 //            sendMessage(edt_message.text.toString())
         }
@@ -60,7 +60,7 @@ class ChatActivity : AppCompatActivity() {
         rv_message.layoutManager = LinearLayoutManager(this)
         rv_message.adapter = adapter
 
-        chatViewModel.fetchMessages().observe(this, Observer {
+        chatViewModel.mutableData.observe(this, {
             adapter.setMessages(it)
         })
     }
