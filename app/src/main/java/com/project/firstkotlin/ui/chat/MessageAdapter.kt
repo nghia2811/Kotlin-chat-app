@@ -17,13 +17,12 @@ import com.google.firebase.ktx.Firebase
 import com.project.firstkotlin.R
 import com.project.firstkotlin.data.model.Message
 import com.project.firstkotlin.data.model.User
+import com.project.firstkotlin.data.model.UserSingleton
 
 class MessageAdapter(private val context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var messages = mutableListOf<Message>()
-    private var mAuth: FirebaseAuth  = Firebase.auth
-    private lateinit var mData: DatabaseReference
-    private lateinit var username: String
+    private var username = UserSingleton.user?.name
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -79,28 +78,12 @@ class MessageAdapter(private val context: Context) :
     override fun getItemCount(): Int = messages.size
 
     override fun getItemViewType(position: Int): Int {
-//        loadDataFromFirebase()
-//        if (messages[position].sender == username) return 1
+        if (messages[position].sender == username) return 1
         return 0
     }
 
     fun setMessages(messages: MutableList<Message>){
         this.messages = messages
         notifyDataSetChanged()
-    }
-
-    private fun loadDataFromFirebase(){
-        val user = mAuth.currentUser
-        mData = Firebase.database.reference.child("User").child(user!!.uid)
-        mData.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                // Setting values
-                val p: User? = dataSnapshot.getValue(User::class.java)
-                username = p!!.name
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-            }
-        })
     }
 }

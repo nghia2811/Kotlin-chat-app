@@ -45,4 +45,8 @@ class MessageRepository {
         })
     }
 
+    fun sendMessage(){
+
+    }
+
 }

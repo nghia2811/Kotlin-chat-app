@@ -1,8 +1,7 @@
 package com.project.firstkotlin.data.repository
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.google.firebase.auth.ktx.auth
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -12,13 +11,18 @@ import com.google.firebase.ktx.Firebase
 import com.project.firstkotlin.data.model.User
 
 class UserRepository {
+    private var mAuth: FirebaseAuth = FirebaseAuth.getInstance()
     private lateinit var mData: DatabaseReference
-    private lateinit var lstUser: MutableList<String>
+    var registerIsSuccess : Boolean = false
+    val mutableData = MutableLiveData<MutableList<String>>()
 
-    fun getUserList(): LiveData<MutableList<String>> {
-        val mutableData = MutableLiveData<MutableList<String>>()
+    init {
+        getUserList()
+    }
 
-        mData = Firebase.database.reference.child("User")
+    fun getUserList() {
+        mData = Firebase.database.reference.child("User").child("FirstGroup").child("message")
+        val lstUser = mutableListOf<String>()
         mData.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // Setting values
@@ -26,13 +30,28 @@ class UserRepository {
                 dataSnapshot.children.forEach {
                     it.getValue(User::class.java)?.name?.let { it1 -> lstUser.add(it1) }
                 }
+                mutableData.value = lstUser
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
             }
         })
+    }
 
-        mutableData.value = lstUser
-        return mutableData
+    fun registerAccount(email: String, password: String, name: String, address: String): Boolean {
+        mAuth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    var mUser = mAuth.currentUser
+                    var user =
+                        User(mUser!!.uid, email, name, address, arrayListOf("FirstGroup"))
+                    mData = Firebase.database.reference
+                    mData.child("User").child(mUser.uid).setValue(user)
+                    registerIsSuccess = true
+                } else {
+                    registerIsSuccess = false
+                }
+            }
+        return registerIsSuccess
     }
 }

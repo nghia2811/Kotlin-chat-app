@@ -62,7 +62,7 @@ class RegisterActivity : AppCompatActivity() {
         var name: String = register_name.text.toString()
         var address: String = register_address.text.toString()
 
-        if (registerViewModel.registerAccount(email, password, name, address)) {
+        if (registerViewModel.registerByEmail(email, password, name, address)) {
             register_loading.visibility = View.INVISIBLE
             Toast.makeText(
                 baseContext, "Successful registration!",
@@ -81,7 +81,7 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    fun isEmailValid(email: String?): Boolean {
+    private fun isEmailValid(email: String?): Boolean {
         val pattern = Pattern.compile("^(.+)@(.+)$")
         val mat = pattern.matcher(email)
         return mat.matches()

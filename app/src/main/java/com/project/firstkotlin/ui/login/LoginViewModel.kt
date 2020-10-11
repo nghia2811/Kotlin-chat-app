@@ -3,20 +3,19 @@ package com.project.firstkotlin.ui.login
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
+import com.project.firstkotlin.data.model.Note
+import com.project.firstkotlin.data.repository.LoginRepository
+import com.project.firstkotlin.data.repository.NoteRepository
+import com.project.firstkotlin.data.repository.UserRepository
+import kotlinx.coroutines.launch
 
 class LoginViewModel(application: Application) : ViewModel() {
-    private var mAuth: FirebaseAuth = FirebaseAuth.getInstance()
+    private val loginRepository = LoginRepository()
 
-    fun login(email: String, password: String): Boolean {
-        var isSuccess = true
-
-        mAuth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
-                isSuccess = task.isSuccessful
-            }
-
-        return isSuccess
+    fun loginByEmail(email: String, password: String) : Boolean {
+        return loginRepository.loginByEmail(email, password)
     }
 
     class LoginViewModelFactory(private val application: Application) :

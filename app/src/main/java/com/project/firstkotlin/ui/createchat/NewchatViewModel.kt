@@ -23,14 +23,14 @@ import kotlinx.android.synthetic.main.activity_createchat.*
 class NewchatViewModel(application: Application) : ViewModel() {
     val userRepository = UserRepository()
 
-    fun loadDataFromFirebase(): LiveData<MutableList<String>> {
-        val mutableData = MutableLiveData<MutableList<String>>()
-        userRepository.getUserList().observeForever {
-            mutableData.value = it
-        }
-
-        return mutableData
-    }
+//    fun loadDataFromFirebase(): LiveData<MutableList<String>> {
+//        val mutableData = MutableLiveData<MutableList<String>>()
+//        userRepository.getUserList().observeForever {
+//            mutableData.value = it
+//        }
+//
+//        return mutableData
+//    }
 
 
     class NewchatViewModelFactory(private val application: Application) :

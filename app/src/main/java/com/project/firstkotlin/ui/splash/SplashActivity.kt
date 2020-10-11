@@ -8,6 +8,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.project.firstkotlin.R
+import com.project.firstkotlin.data.model.UserSingleton
 import com.project.firstkotlin.ui.login.LoginActivity
 import com.project.firstkotlin.ui.main.MainActivity
 

@@ -3,6 +3,7 @@ package com.project.firstkotlin.ui.chat
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +14,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.project.firstkotlin.R
 import com.project.firstkotlin.data.model.Message
+import com.project.firstkotlin.data.model.UserSingleton
 import com.project.firstkotlin.ui.info.InfoActivity
 import kotlinx.android.synthetic.main.activity_chat.*
 import java.time.LocalDateTime
@@ -62,6 +64,7 @@ class ChatActivity : AppCompatActivity() {
 
         chatViewModel.mutableData.observe(this, {
             adapter.setMessages(it)
+            chat_loading.visibility = View.GONE
         })
     }
 

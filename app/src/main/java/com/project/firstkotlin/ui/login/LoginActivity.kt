@@ -30,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
             if (login_user.text.toString() == "" || login_pass.text.toString() == "")
                 Toast.makeText(this, "Vui lòng thêm đủ thông tin!!", Toast.LENGTH_SHORT).show()
             else {
-                DangNhap()
+                loginByEmail()
             }
         }
 
@@ -39,9 +39,9 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun DangNhap() {
+    private fun loginByEmail() {
         login_loading.visibility = View.VISIBLE
-        if (loginViewModel.login(login_user.text.toString(), login_pass.text.toString())) {
+        if (loginViewModel.loginByEmail(login_user.text.toString(), login_pass.text.toString())) {
             login_loading.visibility = View.INVISIBLE
             goToMain()
         } else {
