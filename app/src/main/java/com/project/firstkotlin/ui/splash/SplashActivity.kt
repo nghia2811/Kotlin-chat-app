@@ -9,6 +9,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.project.firstkotlin.R
 import com.project.firstkotlin.data.model.UserSingleton
+import com.project.firstkotlin.ui.chat.ChatActivity
 import com.project.firstkotlin.ui.login.LoginActivity
 import com.project.firstkotlin.ui.main.MainActivity
 
@@ -23,7 +24,7 @@ class SplashActivity : AppCompatActivity() {
             // Initialize Firebase Auth
             mAuth = Firebase.auth
             if (mAuth.currentUser != null) {
-                val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                val intent = Intent(this@SplashActivity, ChatActivity::class.java)
                 startActivity(intent)
             } else startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
             finish()

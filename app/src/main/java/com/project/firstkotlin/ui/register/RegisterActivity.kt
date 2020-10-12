@@ -61,24 +61,24 @@ class RegisterActivity : AppCompatActivity() {
         var password: String = register_pass.text.toString()
         var name: String = register_name.text.toString()
         var address: String = register_address.text.toString()
-
-        if (registerViewModel.registerByEmail(email, password, name, address)) {
-            register_loading.visibility = View.INVISIBLE
-            Toast.makeText(
-                baseContext, "Successful registration!",
-                Toast.LENGTH_SHORT
-            ).show()
-            // Sign in success, update UI with the signed-in user's information
-            val intent = Intent(this@RegisterActivity, MainActivity::class.java)
-            startActivity(intent)
-        } else {
-            // If sign in fails, display a message to the user.
-            register_loading.visibility = View.INVISIBLE
-            Toast.makeText(
-                baseContext, "Failed registration!",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
+//
+//        if (registerViewModel.registerByEmail(email, password, name, address)) {
+//            register_loading.visibility = View.INVISIBLE
+//            Toast.makeText(
+//                baseContext, "Successful registration!",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//            // Sign in success, update UI with the signed-in user's information
+//            val intent = Intent(this@RegisterActivity, MainActivity::class.java)
+//            startActivity(intent)
+//        } else {
+//            // If sign in fails, display a message to the user.
+//            register_loading.visibility = View.INVISIBLE
+//            Toast.makeText(
+//                baseContext, "Failed registration!",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//        }
     }
 
     private fun isEmailValid(email: String?): Boolean {

@@ -1,32 +1,17 @@
 package com.project.firstkotlin.ui.login
 
-import android.app.Application
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
-import com.google.firebase.auth.FirebaseAuth
-import com.project.firstkotlin.data.model.Note
-import com.project.firstkotlin.data.repository.LoginRepository
-import com.project.firstkotlin.data.repository.NoteRepository
-import com.project.firstkotlin.data.repository.UserRepository
-import kotlinx.coroutines.launch
+import com.project.firstkotlin.data.repository.Repository
 
-class LoginViewModel(application: Application) : ViewModel() {
-    private val loginRepository = LoginRepository()
+class LoginViewModel() : ViewModel() {
 
-    fun loginByEmail(email: String, password: String) : Boolean {
-        return loginRepository.loginByEmail(email, password)
-    }
+    private val repository = Repository.getInstance()
 
-    class LoginViewModelFactory(private val application: Application) :
-        ViewModelProvider.Factory {
+    val isLogin = MutableLiveData<Boolean>()
 
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
-                return LoginViewModel(application) as T
-            }
-
-            throw IllegalArgumentException("Unable construct viewModel")
+    fun login(email: String, password: String) =
+        repository.login(email, password).addOnCompleteListener {
+            isLogin.value = it.isSuccessful
         }
-    }
 }

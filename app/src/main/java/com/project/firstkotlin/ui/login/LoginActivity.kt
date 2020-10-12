@@ -4,53 +4,46 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.project.firstkotlin.R
+import com.project.firstkotlin.ui.chat.ChatActivity
 import com.project.firstkotlin.ui.main.MainActivity
 import com.project.firstkotlin.ui.register.RegisterActivity
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
 
-    private val loginViewModel: LoginViewModel by lazy {
-        ViewModelProvider(this, LoginViewModel.LoginViewModelFactory(this.application)).get(
-            LoginViewModel::class.java
-        )
-    }
+    private val loginViewModel by viewModels<LoginViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         initEvents()
+        observeData()
+    }
+
+    private fun observeData() {
+        loginViewModel.isLogin.observe(this) {
+            if(it)
+                goToMain()
+            else
+                Toast.makeText(this, "Authentication failed!!", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun initEvents() {
         btn_login.setOnClickListener {
-            if (login_user.text.toString() == "" || login_pass.text.toString() == "")
+            if (login_user.text.toString().isEmpty() || login_pass.text.toString().isEmpty())
                 Toast.makeText(this, "Vui lòng thêm đủ thông tin!!", Toast.LENGTH_SHORT).show()
             else {
-                loginByEmail()
+                loginViewModel.login(login_user.text.toString(),login_pass.text.toString())
             }
         }
 
         tv_register.setOnClickListener {
             goToRegister()
-        }
-    }
-
-    private fun loginByEmail() {
-        login_loading.visibility = View.VISIBLE
-        if (loginViewModel.loginByEmail(login_user.text.toString(), login_pass.text.toString())) {
-            login_loading.visibility = View.INVISIBLE
-            goToMain()
-        } else {
-            // If sign in fails, display a message to the user.
-            Toast.makeText(
-                baseContext, "Authentication failed!",
-                Toast.LENGTH_SHORT
-            ).show()
-            login_loading.visibility = View.INVISIBLE
         }
     }
 
@@ -60,7 +53,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun goToMain() {
-        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+        val intent = Intent(this@LoginActivity, ChatActivity::class.java)
         startActivity(intent)
         Toast.makeText(
             baseContext, "Authentication successful!",

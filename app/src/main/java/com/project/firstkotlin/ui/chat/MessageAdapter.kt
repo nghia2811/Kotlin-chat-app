@@ -22,7 +22,6 @@ import com.project.firstkotlin.data.model.UserSingleton
 class MessageAdapter(private val context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var messages = mutableListOf<Message>()
-    private var username = UserSingleton.user?.name
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -78,7 +77,7 @@ class MessageAdapter(private val context: Context) :
     override fun getItemCount(): Int = messages.size
 
     override fun getItemViewType(position: Int): Int {
-        if (messages[position].sender == username) return 1
+        if (messages[position].sender == UserSingleton.user?.name) return 1
         return 0
     }
 

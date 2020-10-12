@@ -49,14 +49,24 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this@MainActivity, NewchatActivity::class.java))
         }
 
-        loadDataFromFirebase()
+//        loadDataFromFirebase()
+
+
+
+
+
+
+
+
+
+
     }
 
-    private fun loadDataFromFirebase() {
-        lstUser = mainViewModel.loadDatafromFirebase()
-        mainAdapter!!.notifyDataSetChanged()
-        main_loading.visibility = View.GONE
-    }
+//    private fun loadDataFromFirebase() {
+//        lstUser = mainViewModel.loadDatafromFirebase()
+//        mainAdapter!!.notifyDataSetChanged()
+//        main_loading.visibility = View.GONE
+//    }
 
     override fun onBackPressed() {
         if (doubleClick) finish()

@@ -5,10 +5,9 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -24,29 +23,37 @@ import java.time.format.FormatStyle
 class ChatActivity : AppCompatActivity() {
 
     var group: String? = null
-    var username: String? = null
 
-    private val chatViewModel: ChatViewModel by lazy {
-        ViewModelProvider(this, ChatViewModel.ChatViewModelFactory(this.application)).get(
-            ChatViewModel::class.java
-        )
-    }
+    private val chatViewModel by viewModels<ChatViewModel>()
 
+    private val adapter = MessageAdapter(this)
+
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
+        observeData()
         initControls()
         initEvents()
-
-        group = intent.getStringExtra("group")
-        username = intent.getStringExtra("username")
-
     }
 
+    private fun observeData() {
+        chatViewModel.messages.observe(this) {
+            adapter.setMessages(it)
+            chat_loading.visibility = View.GONE
+        }
+
+        chatViewModel.sendSuccess.observe(this) {
+            if (!it)
+                Toast.makeText(this, "Send failed", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun initEvents() {
         btn_send.setOnClickListener {
-//            sendMessage(edt_message.text.toString())
+            sendMessage(edt_message.text.toString())
         }
 
         btn_options.setOnClickListener {
@@ -56,31 +63,24 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private fun initControls() {
-        val adapter = MessageAdapter(this)
+//        group = intent.getStringExtra("group")
 
         rv_message.setHasFixedSize(true)
         rv_message.layoutManager = LinearLayoutManager(this)
         rv_message.adapter = adapter
-
-        chatViewModel.mutableData.observe(this, {
-            adapter.setMessages(it)
-            chat_loading.visibility = View.GONE
-        })
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun sendMessage(message: String) {
-        if (!message.isEmpty()) {
+        if (message.isNotEmpty()) {
 
             val current = LocalDateTime.now()
-
             val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
             val formatted = current.format(formatter)
-            val sendmessage = Message(formatted, username!!, message)
+            val sendmessage = Message(formatted, UserSingleton.user!!.name, message)
 
-            Firebase.database.reference.child("Group").child(group!!).child("message")
-                .child(formatted).setValue(sendmessage)
-            edt_message.setText(null)
+            chatViewModel.send(sendmessage)
+            edt_message.text = null
         } else
             Toast.makeText(this, "Vui lòng nhập tin nhắn!", Toast.LENGTH_SHORT).show()
     }
