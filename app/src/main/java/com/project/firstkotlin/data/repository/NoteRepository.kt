@@ -2,12 +2,13 @@ package com.project.firstkotlin.data.repository
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import com.project.firstkotlin.data.local.NoteDatabase
 import com.project.firstkotlin.data.local.NoteDao
+import com.project.firstkotlin.data.local.NoteDatabase
 import com.project.firstkotlin.data.model.Note
 
-class NoteRepository(app : Application){
+class NoteRepository(app: Application) {
     private val noteDao: NoteDao
+
     init {
         val noteDatabase: NoteDatabase = NoteDatabase.getInstance(app)
         noteDao = noteDatabase.getNoteDao()

@@ -5,9 +5,9 @@ import androidx.room.PrimaryKey
 import java.io.Serializable
 
 @Entity(tableName = "note_table")
-class Note(var title: String = "", var description : String = ""): Serializable {
+class Note(var title: String = "", var description: String = "") : Serializable {
 
     @PrimaryKey(autoGenerate = true)
-    var id : Int = 0
+    var id: Int = 0
 
 }

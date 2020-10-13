@@ -5,12 +5,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.project.firstkotlin.data.repository.NoteRepository
 import com.project.firstkotlin.data.model.Note
+import com.project.firstkotlin.data.repository.NoteRepository
 import kotlinx.coroutines.launch
 
-class NoteViewModel(application: Application): ViewModel() {
-    private val noteRepository:NoteRepository = NoteRepository(application)
+class NoteViewModel(application: Application) : ViewModel() {
+    private val noteRepository: NoteRepository = NoteRepository(application)
 
     fun insertNote(note: Note) = viewModelScope.launch {
         noteRepository.insertNote(note)
@@ -26,10 +26,10 @@ class NoteViewModel(application: Application): ViewModel() {
 
     fun getAllNote(): LiveData<List<Note>> = noteRepository.getAllNote()
 
-    class NoteViewModelFactory(private val application: Application) : ViewModelProvider.Factory{
+    class NoteViewModelFactory(private val application: Application) : ViewModelProvider.Factory {
 
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            if(modelClass.isAssignableFrom(NoteViewModel::class.java)){
+            if (modelClass.isAssignableFrom(NoteViewModel::class.java)) {
                 return NoteViewModel(application) as T
             }
 

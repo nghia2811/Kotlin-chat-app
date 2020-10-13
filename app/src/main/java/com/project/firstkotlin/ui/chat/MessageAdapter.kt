@@ -6,17 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import com.project.firstkotlin.R
 import com.project.firstkotlin.data.model.Message
-import com.project.firstkotlin.data.model.User
 import com.project.firstkotlin.data.model.UserSingleton
 
 class MessageAdapter(private val context: Context) :
@@ -81,7 +72,7 @@ class MessageAdapter(private val context: Context) :
         return 0
     }
 
-    fun setMessages(messages: MutableList<Message>){
+    fun setMessages(messages: MutableList<Message>) {
         this.messages = messages
         notifyDataSetChanged()
     }

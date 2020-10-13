@@ -14,13 +14,13 @@ class NoteAdapter(
     private val context: Context,
     private val onClick: (Note) -> Unit
 //    private val onDelete: (Note) -> Unit,
-    ) : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
+) : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
     private var notes: List<Note> = listOf()
 
     inner class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val txtTitle: TextView = itemView.findViewById(R.id.tv_username)
-        private val txtDescrition: TextView  = itemView.findViewById(R.id.tv_message)
-        private val layout: LinearLayout  = itemView.findViewById(R.id.layout_message)
+        private val txtDescrition: TextView = itemView.findViewById(R.id.tv_message)
+        private val layout: LinearLayout = itemView.findViewById(R.id.layout_message)
 
         fun onBind(note: Note) {
             txtTitle.text = note.title
@@ -39,9 +39,9 @@ class NoteAdapter(
         holder.onBind(notes[position])
     }
 
-    override fun getItemCount(): Int =notes.size
+    override fun getItemCount(): Int = notes.size
 
-    fun setNotes(notes: List<Note>){
+    fun setNotes(notes: List<Note>) {
         this.notes = notes
         notifyDataSetChanged()
     }

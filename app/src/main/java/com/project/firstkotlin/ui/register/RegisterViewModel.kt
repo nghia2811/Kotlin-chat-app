@@ -1,20 +1,25 @@
 package com.project.firstkotlin.ui.register
 
-import android.app.Application
+import android.net.Uri
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.project.firstkotlin.data.model.User
+import com.project.firstkotlin.data.model.UserSingleton
+import com.project.firstkotlin.data.repository.Repository
+import java.util.*
 
-class RegisterViewModel(application: Application) : ViewModel() {
+class RegisterViewModel : ViewModel() {
+    private val repository = Repository.getInstance()
 
-    class RegisterViewModelFactory(private val application: Application) :
-        ViewModelProvider.Factory {
+    val registerSuccessful = MutableLiveData<Boolean>()
 
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(RegisterViewModel::class.java)) {
-                return RegisterViewModel(application) as T
-            }
-
-            throw IllegalArgumentException("Unable construct viewModel")
+    fun registerAccount(email: String, password: String, user: User, uri: Uri) =
+        repository.registerAccount(email, password).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                registerSuccessful.value = true
+                repository.addAccountToDatabase(user, uri)
+            } else registerSuccessful.value = false
         }
-    }
 }

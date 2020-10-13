@@ -1,10 +1,7 @@
 package com.project.firstkotlin.ui.chat
 
-import android.app.Application
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -14,7 +11,7 @@ import com.project.firstkotlin.data.model.User
 import com.project.firstkotlin.data.model.UserSingleton
 import com.project.firstkotlin.data.repository.Repository
 
-class ChatViewModel() : ViewModel() {
+class ChatViewModel : ViewModel() {
     private val repository = Repository.getInstance()
 
     val messages = MutableLiveData<MutableList<Message>>()
@@ -49,7 +46,6 @@ class ChatViewModel() : ViewModel() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // Setting values
                 UserSingleton.user = dataSnapshot.getValue(User::class.java)!!
-            Log.d("user", "user"+UserSingleton.user!!.name)
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -59,7 +55,7 @@ class ChatViewModel() : ViewModel() {
 
     fun send(message: Message) {
         repository.send(message).addOnCompleteListener {
-            if(!it.isSuccessful)
+            if (!it.isSuccessful)
                 sendSuccess.value = false
         }
     }

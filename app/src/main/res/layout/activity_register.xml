@@ -8,130 +8,132 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="140dp"
-        android:background="@drawable/background" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/iv_logo_register"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="40dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        app:cardCornerRadius="40dp">
-        <ImageView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/logo"/>
-    </androidx.cardview.widget.CardView>
-    </RelativeLayout>
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tv_signup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="Sign up for free"
-        android:fontFamily="@font/milkshake"
-        android:textAlignment="center"
-        android:textColor="@color/colorBlack"
-        android:textSize="27sp"
-        android:textStyle="bold" />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:background="@drawable/background" />
 
-    <EditText
-        android:id="@+id/register_user"
-        android:layout_width="300dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/edittext_selector"
-        android:drawableLeft="@drawable/ic_baseline_account_circle_24"
-        android:drawablePadding="10dp"
-        android:hint="Địa chỉ Email"
-        android:inputType="textEmailAddress"
-        android:padding="10dp"
-        android:paddingStart="10dp" />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/iv_logo_register"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="40dp"
+                app:cardCornerRadius="40dp">
 
-    <EditText
-        android:id="@+id/register_pass"
-        android:layout_width="300dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/edittext_selector"
-        android:drawableLeft="@drawable/ic_baseline_lock_24"
-        android:drawablePadding="10dp"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:padding="10dp"
-        android:paddingStart="10dp" />
+                <ImageView
+                    android:id="@+id/set_avatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/logo" />
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
 
-    <EditText
-        android:id="@+id/register_name"
-        android:layout_width="300dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/edittext_selector"
-        android:drawableLeft="@drawable/ic_baseline_emoji_emotions_24"
-        android:drawablePadding="10dp"
-        android:hint="Nickname"
-        android:padding="10dp"
-        android:paddingStart="10dp" />
+        <TextView
+            android:id="@+id/tv_signup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/milkshake"
+            android:text="Sign up for free"
+            android:textAlignment="center"
+            android:textColor="@color/colorBlack"
+            android:textSize="27sp"
+            android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/register_address"
-        android:layout_width="300dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/edittext_selector"
-        android:drawableLeft="@drawable/ic_baseline_location_on_24"
-        android:drawablePadding="10dp"
-        android:hint="Address"
-        android:padding="10dp"
-        android:paddingStart="10dp" />
+        <EditText
+            android:id="@+id/register_user"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/edittext_selector"
+            android:drawableLeft="@drawable/ic_baseline_account_circle_24"
+            android:drawablePadding="10dp"
+            android:hint="Địa chỉ Email"
+            android:inputType="textEmailAddress"
+            android:padding="10dp"
+            android:paddingStart="10dp" />
 
-    <Button
-        android:id="@+id/btn_register"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/button_selector"
-        android:text="register"
-        android:textSize="18sp"
-        android:textColor="@color/colorWhite"
-        android:textStyle="bold" />
+        <EditText
+            android:id="@+id/register_pass"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/edittext_selector"
+            android:drawableLeft="@drawable/ic_baseline_lock_24"
+            android:drawablePadding="10dp"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:paddingStart="10dp" />
 
-    <TextView
-        android:id="@+id/tv_back_signup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
-        android:layout_marginTop="80dp"
-        android:drawableLeft="@drawable/ic_baseline_arrow_left_24"
-        android:text="Back to Sign in"
-        android:textColor="@color/colorBlack"
-        android:textSize="17sp" />
+        <EditText
+            android:id="@+id/confirm_password"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/edittext_selector"
+            android:drawableLeft="@drawable/ic_baseline_check_circle_24"
+            android:drawablePadding="10dp"
+            android:hint="Confirm password"
+            android:padding="10dp"
+            android:paddingStart="10dp" />
+
+        <EditText
+            android:id="@+id/register_name"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/edittext_selector"
+            android:drawableLeft="@drawable/ic_baseline_emoji_emotions_24"
+            android:drawablePadding="10dp"
+            android:hint="Nickname"
+            android:padding="10dp"
+            android:paddingStart="10dp" />
+
+        <Button
+            android:id="@+id/btn_register"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/button_selector"
+            android:text="register"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_back_signup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:background="?attr/selectableItemBackground"
+            android:drawableLeft="@drawable/ic_baseline_arrow_left_24"
+            android:text="Back to Sign in"
+            android:textColor="@color/colorBlack"
+            android:textSize="17sp" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/register_loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:clickable="true"
-        android:visibility="gone"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <ProgressBar
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

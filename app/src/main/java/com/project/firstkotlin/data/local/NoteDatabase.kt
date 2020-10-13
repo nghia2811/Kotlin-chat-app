@@ -11,13 +11,14 @@ abstract class NoteDatabase : RoomDatabase() {
 
     abstract fun getNoteDao(): NoteDao
 
-    companion object{
+    companion object {
         @Volatile
         private var instance: NoteDatabase? = null
 
         fun getInstance(context: Context): NoteDatabase {
-            if(instance == null){
-                instance = Room.databaseBuilder(context, NoteDatabase::class.java, "NoteDatabase").build()
+            if (instance == null) {
+                instance =
+                    Room.databaseBuilder(context, NoteDatabase::class.java, "NoteDatabase").build()
             }
             return instance!!
         }

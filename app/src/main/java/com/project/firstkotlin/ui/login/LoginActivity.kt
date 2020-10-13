@@ -2,14 +2,11 @@ package com.project.firstkotlin.ui.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.project.firstkotlin.R
 import com.project.firstkotlin.ui.chat.ChatActivity
-import com.project.firstkotlin.ui.main.MainActivity
 import com.project.firstkotlin.ui.register.RegisterActivity
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -26,7 +23,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun observeData() {
         loginViewModel.isLogin.observe(this) {
-            if(it)
+            if (it)
                 goToMain()
             else
                 Toast.makeText(this, "Authentication failed!!", Toast.LENGTH_SHORT).show()
@@ -38,7 +35,7 @@ class LoginActivity : AppCompatActivity() {
             if (login_user.text.toString().isEmpty() || login_pass.text.toString().isEmpty())
                 Toast.makeText(this, "Vui lòng thêm đủ thông tin!!", Toast.LENGTH_SHORT).show()
             else {
-                loginViewModel.login(login_user.text.toString(),login_pass.text.toString())
+                loginViewModel.login(login_user.text.toString(), login_pass.text.toString())
             }
         }
 

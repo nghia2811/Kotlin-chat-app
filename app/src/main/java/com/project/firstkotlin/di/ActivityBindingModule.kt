@@ -8,5 +8,5 @@ import dagger.android.ContributesAndroidInjector
 abstract class ActivityBindingModule {
 
     @ContributesAndroidInjector
-    abstract fun bindDemoActivity() : DemoActivity
+    abstract fun bindDemoActivity(): DemoActivity
 }

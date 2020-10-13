@@ -7,13 +7,13 @@ import com.project.firstkotlin.data.model.Note
 @Dao
 interface NoteDao {
     @Insert
-    suspend fun insertNote(note : Note)
+    suspend fun insertNote(note: Note)
 
     @Update
-    suspend fun  updateNote(note : Note)
+    suspend fun updateNote(note: Note)
 
     @Delete
-    suspend fun deleteNote(note : Note)
+    suspend fun deleteNote(note: Note)
 
     @Query("select * from note_table")
     fun getAllNote(): LiveData<List<Note>>

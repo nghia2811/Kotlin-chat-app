@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class GithubService {
 
-    companion object Factory{
+    companion object Factory {
         fun create(): GithubApi {
             var retrofit = Retrofit.Builder()
                 .baseUrl("https://api.github.com/")

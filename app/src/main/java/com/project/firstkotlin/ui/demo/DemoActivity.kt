@@ -2,10 +2,10 @@ package com.project.firstkotlin.ui.demo
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.project.firstkotlin.ImageLoader
 import com.project.firstkotlin.R
 import com.project.firstkotlin.data.model.Profile
 import com.project.firstkotlin.data.remote.GithubApi
-import com.project.firstkotlin.ImageLoader
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_demo.*
 import retrofit2.Call

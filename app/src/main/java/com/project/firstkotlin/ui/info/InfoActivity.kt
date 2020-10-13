@@ -14,7 +14,8 @@ import kotlinx.android.synthetic.main.activity_info.*
 class InfoActivity : Activity() {
 
     private lateinit var mAuth: FirebaseAuth
-//    private var socket = SocketSingleton.getSocket()
+
+    //    private var socket = SocketSingleton.getSocket()
     var arrayAdapter: ArrayAdapter<String>? = null
     var userList = arrayListOf<String>()
 

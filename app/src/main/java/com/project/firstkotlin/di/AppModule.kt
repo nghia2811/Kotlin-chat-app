@@ -1,7 +1,7 @@
 package com.project.firstkotlin.di
 
-import com.project.firstkotlin.data.remote.GithubService
 import com.project.firstkotlin.ImageLoader
+import com.project.firstkotlin.data.remote.GithubService
 import dagger.Module
 import dagger.Provides
 
